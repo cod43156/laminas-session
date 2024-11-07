@@ -22,7 +22,7 @@ use function strtr;
  *     name?: non-empty-string,
  *     salt?: non-empty-string,
  *     session?: Container,
- *     timeout?: int,
+ *     timeout?: ?int,
  * }
  */
 final class Csrf extends AbstractValidator
@@ -200,7 +200,7 @@ final class Csrf extends AbstractValidator
      */
     public function setTimeout(int|null $ttl): void
     {
-        $this->timeout = $ttl ?? null;
+        $this->timeout = $ttl;
     }
 
     /**

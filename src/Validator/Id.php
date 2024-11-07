@@ -60,19 +60,13 @@ class Id implements ValidatorInterface
         $hashBitsPerChar = ini_get('session.sid_bits_per_character');
         $hashBitsPerChar = is_numeric($hashBitsPerChar) ? (int) $hashBitsPerChar : 5;
 
-        switch ($hashBitsPerChar) {
-            case 4:
-                $pattern = '#^[0-9a-f]*$#';
-                break;
-            case 6:
-                $pattern = '#^[0-9a-zA-Z-,]*$#';
-                break;
-            case 5:
-                // intentionally fall-through
-            default:
-                $pattern = '#^[0-9a-v]*$#';
-                break;
-        }
+        $pattern = match ($hashBitsPerChar) {
+            4 => '#^[0-9a-f]*$#',
+            6 => '#^[0-9a-zA-Z-,]*$#',
+            // 5
+            // intentionally fall-through
+            default => '#^[0-9a-v]*$#',
+        };
 
         return (bool) preg_match($pattern, $id);
     }

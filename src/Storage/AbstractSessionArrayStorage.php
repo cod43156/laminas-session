@@ -137,11 +137,7 @@ abstract class AbstractSessionArrayStorage implements
     #[ReturnTypeWillChange]
     public function offsetGet(mixed $key)
     {
-        if (isset($_SESSION[$key])) {
-            return $_SESSION[$key];
-        }
-
-        return null;
+        return $_SESSION[$key] ?? null;
     }
 
     /**
